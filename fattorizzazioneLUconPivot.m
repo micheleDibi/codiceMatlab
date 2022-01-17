@@ -4,8 +4,8 @@ function U = fattorizzazioneLUconPivot(A)
 [m,n] = size(A);
 
 %copia della prima riga
-for x = 1:n
-    U(1, x) = A(1, x);
+for a = 1:n
+    U(1, a) = A(1, a);
 end
 
 for k = 1:m
@@ -20,9 +20,8 @@ for k = 1:m
             suppRiga = suppRiga + 1;
         end
 
-        %controllo che il valore trovato sia minore del numero di righe
-        %definito
-        if(suppRiga <= m)
+        %controllo che il valore trovato sia diverso da zero
+        if(A(suppRiga, k) ~= 0)
 
             % devo effettuare lo scambio delle due righe
             for w = 1:n 
@@ -30,21 +29,17 @@ for k = 1:m
                 A(k, w) = A(suppRiga, w);
                 A(suppRiga, w) = suppVal;
             end
-            
-        else
             % introduzione della VARIANTE
             % non ci sono elementi pivotali lungo la colonna, 
             % dunque sono costretto a spostarmi di una colonna a destra
-            k = k + 1;
         end
         U = A;
     end 
 
     for i = (k+1):m
-        
         molt = -(A(i, k) / A(k, k));
 
-        for j = k:m
+        for j = k:n
             U(i,j) = molt * A(k, j) + A(i, j);
         end
     end
